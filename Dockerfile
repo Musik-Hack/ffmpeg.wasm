@@ -134,37 +134,23 @@ RUN bash -x /src/build.sh
 
 # Base ffmpeg image with dependencies and source code populated.
 FROM emsdk-base AS ffmpeg-base
-RUN embuilder build sdl2 sdl2-mt
 ADD https://github.com/FFmpeg/FFmpeg.git#$FFMPEG_VERSION /src
-COPY --from=x264-builder $INSTALL_DIR $INSTALL_DIR
-COPY --from=x265-builder $INSTALL_DIR $INSTALL_DIR
-COPY --from=libvpx-builder $INSTALL_DIR $INSTALL_DIR
-COPY --from=lame-builder $INSTALL_DIR $INSTALL_DIR
-COPY --from=opus-builder $INSTALL_DIR $INSTALL_DIR
-COPY --from=theora-builder $INSTALL_DIR $INSTALL_DIR
-COPY --from=vorbis-builder $INSTALL_DIR $INSTALL_DIR
-COPY --from=libwebp-builder $INSTALL_DIR $INSTALL_DIR
-COPY --from=libass-builder $INSTALL_DIR $INSTALL_DIR
-COPY --from=zimg-builder $INSTALL_DIR $INSTALL_DIR
+COPY --from=zlib-builder $INSTALL_DIR $INSTALL_DIR
 
 # Build ffmpeg
 FROM ffmpeg-base AS ffmpeg-builder
 COPY build/ffmpeg.sh /src/build.sh
+# Remux-only LGPL-oriented profile: copy encoded streams between containers
+# without GPL/nonfree codecs or audio/video transcoding support.
 RUN bash -x /src/build.sh \
-      --enable-gpl \
-      --enable-libx264 \
-      --enable-libx265 \
-      --enable-libvpx \
-      --enable-libmp3lame \
-      --enable-libtheora \
-      --enable-libvorbis \
-      --enable-libopus \
       --enable-zlib \
-      --enable-libwebp \
-      --enable-libfreetype \
-      --enable-libfribidi \
-      --enable-libass \
-      --enable-libzimg 
+      --disable-postproc \
+      --disable-encoders \
+      --disable-decoders \
+      --disable-filters \
+      --disable-indevs \
+      --disable-outdevs \
+      --disable-hwaccels
 
 # Build ffmpeg.wasm
 FROM ffmpeg-builder AS ffmpeg-wasm-builder
@@ -173,25 +159,7 @@ COPY src/fftools /src/src/fftools
 COPY build/ffmpeg-wasm.sh build.sh
 # libraries to link
 ENV FFMPEG_LIBS \
-      -lx264 \
-      -lx265 \
-      -lvpx \
-      -lmp3lame \
-      -logg \
-      -ltheora \
-      -lvorbis \
-      -lvorbisenc \
-      -lvorbisfile \
-      -lopus \
-      -lz \
-      -lwebpmux \
-      -lwebp \
-      -lsharpyuv \
-      -lfreetype \
-      -lfribidi \
-      -lharfbuzz \
-      -lass \
-      -lzimg
+      -lz
 RUN mkdir -p /src/dist/umd && bash -x /src/build.sh \
       ${FFMPEG_LIBS} \
       -o dist/umd/ffmpeg-core.js
