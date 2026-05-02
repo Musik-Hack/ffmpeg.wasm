@@ -1,0 +1,211 @@
+Distribution Notices for the FFmpeg.wasm Website Build
+======================================================
+
+Release/build identifier: commercial-remux-audio-2026-05-02
+Built from repository commit: see the immutable release tag URL below
+Corresponding source URL:
+https://github.com/Musik-Hack/ffmpeg.wasm/tree/commercial-remux-audio-2026-05-02
+Distributed files covered by this notice:
+- packages/core/dist/umd/ffmpeg-core.js
+- packages/core/dist/umd/ffmpeg-core.wasm
+- packages/core/dist/esm/ffmpeg-core.js
+- packages/core/dist/esm/ffmpeg-core.wasm
+- No separate ffmpeg-core.worker.js is generated for this single-thread build.
+
+This file is intended to accompany the JavaScript/WebAssembly files served by
+the website, including ffmpeg-core.js and ffmpeg-core.wasm.
+
+This is a notice file, not legal advice. Review the exact build and your
+distribution process with counsel before shipping commercially.
+
+
+Project Code
+------------
+
+This repository's JavaScript/TypeScript wrapper code and demo code are licensed
+under the MIT License.
+
+Project repository:
+https://github.com/Musik-Hack/ffmpeg.wasm
+
+Exact source for this release:
+https://github.com/Musik-Hack/ffmpeg.wasm/tree/commercial-remux-audio-2026-05-02
+
+Copyright (c) 2019 Jerome Wu
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to use,
+copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the
+Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+FFmpeg
+------
+
+This software uses libraries from the FFmpeg project.
+
+FFmpeg is licensed under the GNU Lesser General Public License version 2.1 or
+later (LGPL-2.1-or-later), unless configured to include optional GPL or nonfree
+components. This website build is intended to be built without --enable-gpl and
+without --enable-nonfree.
+
+FFmpeg website: https://ffmpeg.org/
+FFmpeg license/legal information: https://www.ffmpeg.org/legal.html
+LGPL 2.1 text: https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html
+FFmpeg source repository: https://github.com/FFmpeg/FFmpeg
+FFmpeg release/tag used: https://github.com/FFmpeg/FFmpeg/tree/n5.1.4
+
+The FFmpeg source used by this repository's Docker build is fetched from:
+https://github.com/FFmpeg/FFmpeg.git
+
+The build currently targets FFmpeg tag:
+n5.1.4
+
+Exact FFmpeg source archive for this release:
+https://github.com/FFmpeg/FFmpeg/archive/refs/tags/n5.1.4.tar.gz
+
+FFmpeg local modifications/patches:
+No patches are applied to the FFmpeg library source fetched from the upstream
+n5.1.4 tag. This repository does include local JavaScript bindings and local
+fftools sources used to produce the WebAssembly interface; see the exact
+release source URL above.
+
+
+LAME / libmp3lame
+-----------------
+
+This software may use libmp3lame through FFmpeg for MP3 audio encoding.
+
+LAME is licensed under the GNU Lesser General Public License. Go through the
+same LGPL compliance steps for LAME that apply to FFmpeg when distributing a
+binary or WebAssembly build that includes libmp3lame.
+
+LAME website: https://lame.sourceforge.io/
+LAME project files: https://sourceforge.net/projects/lame/
+LAME GitHub mirror used by this build: https://github.com/ffmpegwasm/lame
+LAME source used by this repository's Docker build is fetched from:
+https://github.com/ffmpegwasm/lame.git
+
+LAME revision used:
+2badea1974ae36cb8312afe99cff1e6b3b5decee
+
+Exact LAME source archive for this release:
+https://github.com/ffmpegwasm/lame/archive/2badea1974ae36cb8312afe99cff1e6b3b5decee.tar.gz
+
+LAME local modifications/patches:
+No source patches. This repository uses build/lame.sh to configure and build
+LAME for the WebAssembly target.
+
+
+zlib
+----
+
+This software uses zlib.
+
+zlib is distributed under the zlib License.
+zlib website and license: https://www.zlib.net/zlib_license.html
+zlib source downloads: https://www.zlib.net/
+zlib GitHub mirror used by this build: https://github.com/ffmpegwasm/zlib
+
+zlib source used by this repository's Docker build is fetched from:
+https://github.com/ffmpegwasm/zlib.git
+
+The build currently targets zlib branch/tag:
+v1.2.11
+
+Exact zlib source archive for this release:
+https://github.com/ffmpegwasm/zlib/archive/refs/tags/v1.2.11.tar.gz
+
+zlib local modifications/patches:
+No source patches. This repository uses build/zlib.sh to configure and build
+zlib for the WebAssembly target.
+
+
+Emscripten Runtime
+------------------
+
+The generated JavaScript/WebAssembly output includes runtime code produced by
+Emscripten.
+
+Emscripten is available under the MIT License and the University of
+Illinois/NCSA Open Source License.
+
+Emscripten source and license information:
+https://github.com/emscripten-core/emscripten
+Emscripten license file:
+https://github.com/emscripten-core/emscripten/blob/main/LICENSE
+
+The build currently uses emscripten/emsdk Docker image:
+emscripten/emsdk:3.1.40
+
+Docker image digest used:
+Not recorded in this notice. The Dockerfile pins the image tag
+emscripten/emsdk:3.1.40.
+
+
+Corresponding Source Code
+-------------------------
+
+The corresponding source code, Dockerfile, build scripts, and local changes for
+this website build should be made available from the same website or another
+durable public URL.
+
+Repository:
+https://github.com/Musik-Hack/ffmpeg.wasm
+
+Exact release source:
+https://github.com/Musik-Hack/ffmpeg.wasm/tree/commercial-remux-audio-2026-05-02
+
+Source archive hosted with this website:
+Not separately hosted by default. GitHub source archive:
+https://github.com/Musik-Hack/ffmpeg.wasm/archive/refs/tags/commercial-remux-audio-2026-05-02.zip
+
+IMPORTANT: For LGPL compliance, this URL must identify the exact source
+corresponding to the ffmpeg-core.js and ffmpeg-core.wasm files being served.
+Prefer using an immutable release tag or commit URL for the deployed build, not
+only a moving branch name.
+
+
+Build Configuration Summary
+---------------------------
+
+This build is intended to avoid GPL and nonfree FFmpeg configuration:
+
+- no --enable-gpl
+- no --enable-nonfree
+- no libx264 or libx265
+- native zlib enabled
+- libmp3lame enabled
+- most encoders, decoders, filters, input devices, output devices, hardware
+  accelerators, and postproc disabled
+- selected audio encoders, decoders, and audio format/resample filters enabled
+  for browser-compatible extraction and preview
+
+See the repository Dockerfile and COMMERCIAL_REMUX_BUILD.md for the exact
+configure flags and dependency build steps used for a given release.
+
+Exact Dockerfile for this release:
+https://github.com/Musik-Hack/ffmpeg.wasm/blob/commercial-remux-audio-2026-05-02/Dockerfile
+
+Exact build documentation for this release:
+https://github.com/Musik-Hack/ffmpeg.wasm/blob/commercial-remux-audio-2026-05-02/COMMERCIAL_REMUX_BUILD.md
+
+
+No Warranty
+-----------
+
+The third-party software listed above is provided by its authors and copyright
+holders "as is", without warranty of any kind, to the extent permitted by the
+applicable licenses.
