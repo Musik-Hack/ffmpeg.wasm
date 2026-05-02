@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FFmpeg Remux Demo</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        color: #1e2329;
+        background: #f5f7f3;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+      }
+
+      main {
+        width: min(1080px, calc(100vw - 32px));
+        margin: 0 auto;
+        padding: 28px 0 36px;
+      }
+
+      header {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 20px;
+        padding-bottom: 18px;
+        border-bottom: 1px solid #d8ddd2;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 28px;
+        line-height: 1.15;
+        font-weight: 700;
+      }
+
+      .status {
+        min-width: 120px;
+        padding: 8px 10px;
+        border: 1px solid #b9c1b1;
+        border-radius: 6px;
+        background: #ffffff;
+        text-align: center;
+        font-size: 14px;
+        font-weight: 650;
+      }
+
+      .workspace {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 20px;
+        margin-top: 22px;
+      }
+
+      section {
+        display: grid;
+        gap: 14px;
+        min-width: 0;
+        padding: 18px;
+        border: 1px solid #d5dccc;
+        border-radius: 8px;
+        background: #ffffff;
+      }
+
+      h2 {
+        margin: 0;
+        font-size: 18px;
+        line-height: 1.2;
+      }
+
+      label {
+        display: grid;
+        gap: 6px;
+        font-size: 13px;
+        font-weight: 650;
+        color: #3b4238;
+      }
+
+      input,
+      select,
+      button {
+        width: 100%;
+        min-height: 40px;
+        border: 1px solid #b9c1b1;
+        border-radius: 6px;
+        background: #fbfcfa;
+        color: #1e2329;
+        font: inherit;
+      }
+
+      input {
+        padding: 8px;
+      }
+
+      select,
+      button {
+        padding: 0 10px;
+      }
+
+      button {
+        border-color: #1f6f5b;
+        background: #1f6f5b;
+        color: #ffffff;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      button:disabled {
+        border-color: #aab2a3;
+        background: #cbd2c4;
+        color: #677060;
+        cursor: not-allowed;
+      }
+
+      .file-row {
+        display: grid;
+        grid-template-columns: 140px minmax(0, 1fr);
+        gap: 10px;
+        align-items: center;
+      }
+
+      .file-name {
+        min-height: 40px;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        padding: 0 10px;
+        border: 1px solid #d5dccc;
+        border-radius: 6px;
+        background: #f7f9f5;
+        color: #4d5549;
+        font-size: 13px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .console {
+        margin-top: 20px;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .command,
+      .log {
+        margin: 0;
+        border: 1px solid #cad1c2;
+        border-radius: 8px;
+        background: #111815;
+        color: #d9f2e8;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 12px;
+      }
+
+      .command {
+        min-height: 42px;
+        padding: 12px;
+        overflow-x: auto;
+      }
+
+      .log {
+        height: 220px;
+        padding: 12px;
+        overflow: auto;
+        white-space: pre-wrap;
+      }
+
+      .output {
+        min-height: 48px;
+      }
+
+      .download {
+        display: inline-flex;
+        align-items: center;
+        min-height: 40px;
+        padding: 0 12px;
+        border: 1px solid #1f6f5b;
+        border-radius: 6px;
+        color: #145241;
+        background: #e6f3ed;
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      audio,
+      video {
+        width: min(100%, 720px);
+        border: 1px solid #cad1c2;
+        border-radius: 8px;
+        background: #111815;
+      }
+
+      video {
+        max-height: 420px;
+      }
+
+      @media (max-width: 760px) {
+        header,
+        .workspace {
+          grid-template-columns: 1fr;
+        }
+
+        header {
+          display: grid;
+          align-items: start;
+        }
+
+        .status {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>FFmpeg Remux Demo</h1>
+        <div id="status" class="status">Ready</div>
+      </header>
+
+      <div class="workspace">
+        <section>
+          <h2>Extract Audio</h2>
+          <label>
+            Movie file
+            <div class="file-row">
+              <button id="extract-choose" type="button">Choose</button>
+              <div id="extract-file" class="file-name">No file selected</div>
+            </div>
+          </label>
+          <button id="extract-button" type="button" disabled>Extract</button>
+        </section>
+
+        <section>
+          <h2>Attach Audio</h2>
+          <label>
+            Movie file
+            <div class="file-row">
+              <button id="attach-choose" type="button">Choose</button>
+              <div id="attach-file" class="file-name">No file selected</div>
+            </div>
+          </label>
+          <label>
+            Audio file
+            <input id="attach-audio" type="file" accept="audio/*,.m4a,.aac,.mp3,.opus,.ogg,.flac,.wav" />
+          </label>
+          <button id="attach-button" type="button" disabled>Attach</button>
+        </section>
+
+        <section>
+          <h2>Hash & Recover</h2>
+          <label>
+            Hash
+            <input id="hash-value" type="text" autocomplete="off" spellcheck="false" />
+          </label>
+          <button id="recover-button" type="button">Recover Video</button>
+        </section>
+      </div>
+
+      <div class="console">
+        <pre id="command" class="command"></pre>
+        <pre id="log" class="log"></pre>
+        <div id="output" class="output"></div>
+      </div>
+    </main>
+    <script type="module" src="/demo/app.js"></script>
+  </body>
+</html>
