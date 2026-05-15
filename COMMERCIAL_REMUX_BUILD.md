@@ -2,6 +2,9 @@
 
 This fork is configured for browser-side audio extraction and audio attachment by remuxing streams instead of transcoding video.
 
+Release documentation for the portable Vite asset bundle uses tag:
+`commercial-remux-portable-2026-05-15`.
+
 ## Intended operations
 
 Use stream copy whenever possible:
@@ -27,6 +30,30 @@ The Docker build intentionally avoids GPL and nonfree FFmpeg configuration:
 - keeps FFmpeg's native muxers, demuxers, parsers, bitstream filters, protocols, and `zlib`
 
 The goal is broad container support for remuxing common movie/audio files while keeping the generated core aligned with LGPL-style FFmpeg redistribution.
+
+## Portable two-file asset build
+
+The portable browser distribution is generated from the single-thread UMD core:
+
+```bash
+make prd
+npm run build:portable
+```
+
+The generated production assets are:
+
+- `dist/portable/ffmpeg-remux-api.js`
+- `dist/portable/ffmpeg-core.wasm`
+
+`ffmpeg-remux-api.js` embeds the worker code and the `ffmpeg-core.js` glue code.
+`ffmpeg-core.wasm` stays as the only sidecar binary and is resolved from the same
+folder as the API module by default. Importing the API does not download the
+WASM; the WASM is fetched only when `ensureLoaded()` or a FFmpeg-backed operation
+first runs.
+
+When redistributing these assets, keep `DIST_LICENSES.TXT` available next to the
+deployed bundle or from another durable public URL, and identify the exact source
+tag used to build the deployed files.
 
 ## Practical limits
 

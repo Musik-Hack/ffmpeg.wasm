@@ -1,11 +1,13 @@
 Distribution Notices for the FFmpeg.wasm Website Build
 ======================================================
 
-Release/build identifier: commercial-remux-audio-2026-05-02
+Release/build identifier: commercial-remux-portable-2026-05-15
 Built from repository commit: see the immutable release tag URL below
 Corresponding source URL:
-https://github.com/Musik-Hack/ffmpeg.wasm/tree/commercial-remux-audio-2026-05-02
+https://github.com/Musik-Hack/ffmpeg.wasm/tree/commercial-remux-portable-2026-05-15
 Distributed files covered by this notice:
+- dist/portable/ffmpeg-remux-api.js
+- dist/portable/ffmpeg-core.wasm
 - packages/core/dist/umd/ffmpeg-core.js
 - packages/core/dist/umd/ffmpeg-core.wasm
 - packages/core/dist/esm/ffmpeg-core.js
@@ -13,7 +15,7 @@ Distributed files covered by this notice:
 - No separate ffmpeg-core.worker.js is generated for this single-thread build.
 
 This file is intended to accompany the JavaScript/WebAssembly files served by
-the website, including ffmpeg-core.js and ffmpeg-core.wasm.
+the website or application, including ffmpeg-remux-api.js and ffmpeg-core.wasm.
 
 This is a notice file, not legal advice. Review the exact build and your
 distribution process with counsel before shipping commercially.
@@ -29,7 +31,7 @@ Project repository:
 https://github.com/Musik-Hack/ffmpeg.wasm
 
 Exact source for this release:
-https://github.com/Musik-Hack/ffmpeg.wasm/tree/commercial-remux-audio-2026-05-02
+https://github.com/Musik-Hack/ffmpeg.wasm/tree/commercial-remux-portable-2026-05-15
 
 Copyright (c) 2019 Jerome Wu
 
@@ -166,16 +168,16 @@ Repository:
 https://github.com/Musik-Hack/ffmpeg.wasm
 
 Exact release source:
-https://github.com/Musik-Hack/ffmpeg.wasm/tree/commercial-remux-audio-2026-05-02
+https://github.com/Musik-Hack/ffmpeg.wasm/tree/commercial-remux-portable-2026-05-15
 
 Source archive hosted with this website:
 Not separately hosted by default. GitHub source archive:
-https://github.com/Musik-Hack/ffmpeg.wasm/archive/refs/tags/commercial-remux-audio-2026-05-02.zip
+https://github.com/Musik-Hack/ffmpeg.wasm/archive/refs/tags/commercial-remux-portable-2026-05-15.zip
 
 IMPORTANT: For LGPL compliance, this URL must identify the exact source
-corresponding to the ffmpeg-core.js and ffmpeg-core.wasm files being served.
-Prefer using an immutable release tag or commit URL for the deployed build, not
-only a moving branch name.
+corresponding to the ffmpeg-remux-api.js and ffmpeg-core.wasm files being
+served. Prefer using an immutable release tag or commit URL for the deployed
+build, not only a moving branch name.
 
 
 Build Configuration Summary
@@ -197,10 +199,10 @@ See the repository Dockerfile and COMMERCIAL_REMUX_BUILD.md for the exact
 configure flags and dependency build steps used for a given release.
 
 Exact Dockerfile for this release:
-https://github.com/Musik-Hack/ffmpeg.wasm/blob/commercial-remux-audio-2026-05-02/Dockerfile
+https://github.com/Musik-Hack/ffmpeg.wasm/blob/commercial-remux-portable-2026-05-15/Dockerfile
 
 Exact build documentation for this release:
-https://github.com/Musik-Hack/ffmpeg.wasm/blob/commercial-remux-audio-2026-05-02/COMMERCIAL_REMUX_BUILD.md
+https://github.com/Musik-Hack/ffmpeg.wasm/blob/commercial-remux-portable-2026-05-15/COMMERCIAL_REMUX_BUILD.md
 
 
 No Warranty
